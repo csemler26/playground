@@ -30,16 +30,34 @@ bool CsvParser::loadFromFile(const std::string& filePath) {
   }
 
   file.close();
-  return true;
+  return !data_.empty();
 }
 
 bool CsvParser::loadFromString(const std::string& data) {
   std::istringstream stream(data);
   std::string line;
+
   while (std::getline(stream, line)) {
     data_.push_back(parseLine(line));
   }
-  return true;
+
+  return !data_.empty();
+}
+
+bool CsvParser::loadFromStdin() {
+  std::string line;
+
+  // Read data rows
+  while (std::getline(std::cin, line)) {
+
+    if (line.empty()) {
+      continue;
+    }
+
+    data_.push_back(parseLine(line));
+  }
+
+  return !data_.empty();
 }
 
 std::vector<std::string> CsvParser::getRow(size_t row) const {

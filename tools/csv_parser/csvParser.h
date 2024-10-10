@@ -13,11 +13,15 @@ public:
 
   bool loadFromFile(const std::string& filePath);
   bool loadFromString(const std::string& data);
+  bool loadFromStdin();
   std::vector<std::string> getRow(size_t rowIndex) const;
   std::string getField(size_t row, size_t col) const;
   size_t rowCount() const;
   size_t colCount() const;
   void print() const;
+  const std::vector<std::vector<std::string>>& getData() const {
+    return data_;
+  };
 
 private:
   std::vector<std::string> parseLine(const std::string& line);
